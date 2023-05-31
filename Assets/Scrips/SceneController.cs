@@ -13,11 +13,13 @@ public class SceneController : MonoBehaviour
 	About, Credits, Leve_1 , Leve_2, Leve_3, MainMenu, Tutorial</para>
 	</summary>
 	*/
-	public void changeScene(string scene){
+	public void changeScene(string scene)
+	{
 		SceneManager.LoadScene(scene);
 	}
 	
-	public void exitApp(){
+	public void exitApp()
+	{
 		Application.Quit();
 	}
 }
