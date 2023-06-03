@@ -36,7 +36,12 @@ public class PlayerMoves : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Space)){
 			jump();			
 		}
-		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
+		if (Input.GetKey(KeyCode.Mouse0))
+		{
+			animShoot();
+
+		}
+		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
 			moveTo(RIGHT);
 		}
 		else if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
@@ -46,10 +51,7 @@ public class PlayerMoves : MonoBehaviour
 				moveTo(STOP);	
 			}
 		}
-		if(Input.GetKey(KeyCode.Mouse0)){
-				animShoot();			
-		
-		}
+	
 	
 	
 	}

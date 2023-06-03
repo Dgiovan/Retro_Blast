@@ -26,9 +26,7 @@ public class Spawner : MonoBehaviour
     {
 	    totlaTime += Time.deltaTime;
 	    
-	    if(Input.GetKey(KeyCode.Mouse0)){
-	    	spawnBullet();
-	    }
+	 
     }
     
 	public void spawnBullet(){
