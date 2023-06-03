@@ -5,17 +5,18 @@ using UnityEngine;
 public class PlayerMoves : MonoBehaviour
 {
 	private static Rigidbody2D playerBody;
-	private const int WALK = 1;
-	private const int RIGHT = 1;
-	private const int LEFTH = -1;
-	private const int STOP = 0;
-	private int front = RIGHT;
-	private float horizontalHovement = 0;
-	private  float jumpForce = 9.5f;
-	private float movementSpeed = 7;
-	public Animator anim;
-	private bool fromKeyBoard = true;
-	public int animSpeedOfMovement=STOP;
+	private const int	WALK				= 1;
+	private const int	RIGHT				= 1;
+	private const int	LEFTH				= -1;
+	private const int	STOP				= 0;
+	private int 		front				= RIGHT;
+	private float		horizontalHovement  = 0;
+	private float		jumpForce			= 9.5f;
+	private float		movementSpeed		= 7;
+	public  Animator	anim;
+	private bool		fromKeyBoard		= true;
+	public  int			animSpeedOfMovement = STOP;
+	private bool		canJump = true;
 	// Start is called before the first frame update
     void Start()
     {
@@ -35,8 +36,6 @@ public class PlayerMoves : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Space)){
 			jump();			
 		}
-
-		
 		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
 			moveTo(RIGHT);
 		}
@@ -46,6 +45,10 @@ public class PlayerMoves : MonoBehaviour
 			if(fromKeyBoard){
 				moveTo(STOP);	
 			}
+		}
+		if(Input.GetKey(KeyCode.Mouse0)){
+				animShoot();			
+		
 		}
 	
 	
@@ -75,8 +78,11 @@ public class PlayerMoves : MonoBehaviour
 	}
 	/**jump method can be used from the onclick method*/
 	public void jump(){
-		playerBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
-		anim.SetBool("isJump",true);
+		if(canJump){
+			playerBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
+			anim.SetBool("isJump",true);
+			canJump = false;
+		}
 	}
 	/*assigns the direction that our character will see*/
 	private void bodyDirection(){this.transform.localScale = new Vector3(front,1,1);}
@@ -85,7 +91,19 @@ public class PlayerMoves : MonoBehaviour
 	// Sent when an incoming collider makes contact with this object's collider (2D physics only).
 	protected void OnCollisionEnter2D(Collision2D collisionInfo)
 	{
-		if(collisionInfo.gameObject.CompareTag("Floor")){anim.SetBool("isJump",false);}
+		if(collisionInfo.gameObject.CompareTag("Floor")){
+			anim.SetBool("isJump",false);
+			canJump = true;
+		}
 
+	}
+	IEnumerator stopAnimationBullet(){
+		yield return new WaitForSeconds(.7f);
+		anim.SetBool("isShoter",false);
+
+	}
+	public void animShoot(){
+		anim.SetBool("isShoter",true);
+		StartCoroutine(stopAnimationBullet());
 	}
 }
