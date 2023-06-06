@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletMove : MonoBehaviour
 {
 	
-	private float speed = 1050;
+	private float speed = 1500;
 	private Rigidbody2D  bodybullet;
 	private GameObject playerObject;
 	
@@ -16,13 +16,14 @@ public class BulletMove : MonoBehaviour
 	    bodybullet   = GetComponent<Rigidbody2D>();
 	    
 	    bodybullet.velocity = new Vector2(speed * Time.deltaTime * playerObject.transform.localScale.x,0);
+	    Destroy(this.gameObject,2.5f);
     }
 
   
 	// Sent when another object enters a trigger collider attached to this object (2D physics only).
 	protected void OnTriggerEnter2D(Collider2D collisionInfo)
 	{
-		if(collisionInfo.gameObject.CompareTag("Enemy")){
+		if(collisionInfo.gameObject.CompareTag("EnemyDamage")){
 			Destroy(this.gameObject);
 		}
 	}

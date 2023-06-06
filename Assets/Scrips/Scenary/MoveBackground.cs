@@ -24,7 +24,9 @@ public class MoveBackground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    offset = (playerBody.velocity.x * 0.1f) * movementSpeed * Time.deltaTime;
-	    material.mainTextureOffset += offset;
+	    if(PlayerMoves.life>0){
+		    offset = (playerBody.velocity.x * 0.1f) * movementSpeed * Time.deltaTime;
+		    material.mainTextureOffset += offset;
+	    }
     }
 }

@@ -5,14 +5,15 @@ using UnityEngine;
 public class PlayerMoves : MonoBehaviour
 {
 	private static Rigidbody2D playerBody;
-	private const int	WALK				= 1;
-	private const int	RIGHT				= 1;
-	private const int	LEFTH				= -1;
-	private const int	STOP				= 0;
-	private int 		front				= RIGHT;
+	private const  int	WALK				= 1;
+	private const  int	RIGHT				= 1;
+	private const  int	LEFTH				= -1;
+	private const  int	STOP				= 0;
+	private 	   int 	front				= RIGHT;
 	private float		horizontalHovement  = 0;
-	private float		jumpForce			= 9.5f;
+	private float		jumpForce			= 15;
 	private float		movementSpeed		= 7;
+	public  static int  life                = 100;  
 	public  Animator	anim;
 	private bool		fromKeyBoard		= true;
 	public  int			animSpeedOfMovement = STOP;
@@ -28,12 +29,11 @@ public class PlayerMoves : MonoBehaviour
 		
 		directionMove();
 		playerBody.velocity = new Vector2(horizontalHovement,playerBody.velocity.y);
-
-
+		lifePlayer();
 	}
 	/*gets the pressed key and returns an integer value address*/
 	private void directionMove(){
-		if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetKey(KeyCode.Space)){
 			jump();			
 		}
 		if (Input.GetKey(KeyCode.Mouse0))
@@ -81,14 +81,16 @@ public class PlayerMoves : MonoBehaviour
 	/**jump method can be used from the onclick method*/
 	public void jump(){
 		if(canJump){
-			playerBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
 			anim.SetBool("isJump",true);
+			playerBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
 			canJump = false;
 		}
 	}
 	/*assigns the direction that our character will see*/
 	private void bodyDirection(){this.transform.localScale = new Vector3(front,1,1);}
-	
+	public static int getPlayerLife(){
+		return life;
+	}
 	// Sent each frame where a collider on another object is touching this object's collider (2D physics only).
 	// Sent when an incoming collider makes contact with this object's collider (2D physics only).
 	protected void OnCollisionEnter2D(Collision2D collisionInfo)
@@ -99,6 +101,13 @@ public class PlayerMoves : MonoBehaviour
 		}
 
 	}
+	private void lifePlayer() {
+		if (life <= 0) {
+			anim.SetBool("isDead",true);
+			Destroy(this.gameObject,1);
+		}
+	}
+	
 	IEnumerator stopAnimationBullet(){
 		yield return new WaitForSeconds(.7f);
 		anim.SetBool("isShoter",false);

@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Floor
   - Enemy
+  - LimitRigth
+  - LimitLeft
+  - EnemyDamage
+  - bullet
+  - PlayerLife
   layers:
   - Default
   - TransparentFX
