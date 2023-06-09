@@ -82,7 +82,7 @@ public class PlayerMoves : MonoBehaviour
 	}
 	/**jump method can be used from the onclick method*/
 	public void jump(){
-		Debug.Log("call jump");
+
 		if(canJump){
 			Debug.Log("on method");
 			anim.SetBool("isJump",true);
