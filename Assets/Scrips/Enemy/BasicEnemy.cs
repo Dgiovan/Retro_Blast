@@ -13,7 +13,13 @@ public class BasicEnemy : MonoBehaviour
 	private float previus_postion =0;
 	public Animator anim;
 	private float	   totlaTime	 = 0;
-    // Update is called once per frame
+	private AudioSource sound;
+	// Update is called once per frame
+	// Start is called on the frame when a script is enabled just before any of the Update methods is called the first time.
+	protected void Start()
+	{
+		sound = GetComponent<AudioSource>();
+	}
     void Update()
 	{
 		totlaTime += Time.deltaTime;
@@ -22,7 +28,7 @@ public class BasicEnemy : MonoBehaviour
 		    bodyDirection();
 	    }
 	   
-		if(Vector2.Distance(this.transform.position,pointsDestiny[index].position) <=1)
+		if(Vector2.Distance(this.transform.position,pointsDestiny[index].position) <=1.5)
 	    {
 		    index++;
 		    if(index>= pointsDestiny.Length){
@@ -72,6 +78,7 @@ public class BasicEnemy : MonoBehaviour
 		if(collisionInfo.gameObject.CompareTag("Player")){
 			if(totlaTime >1){
 				PlayerMoves.life -= 20 ;
+				sound.Play();
 				totlaTime =0;
 			}
 		}

@@ -24,7 +24,6 @@ public class LifeController : MonoBehaviour
 	protected void FixedUpdate()
 	{
 
-			Debug.Log("Player life" + PlayerMoves.getPlayerLife());
 			sliderLife.value = PlayerMoves.getPlayerLife();
 		
 	}

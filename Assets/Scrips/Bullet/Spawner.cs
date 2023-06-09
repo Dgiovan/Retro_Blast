@@ -9,11 +9,13 @@ public class Spawner : MonoBehaviour
 	private int 	   CreateBullets = 0;
 	private float	   distanceSpawn = 1;
 	private float	   totlaTime	 = 0;
+	private AudioSource sound;
 
     // Start is called before the first frame update
     void Start()
 	{
 		playerObject = GameObject.FindGameObjectWithTag("Player");
+		sound = GetComponent<AudioSource>();
         
 	}
 	
@@ -31,7 +33,7 @@ public class Spawner : MonoBehaviour
     
 	public void spawnBullet(){
 		if(totlaTime > distanceSpawn){
-
+			sound.Play();
 			Instantiate(bulletObject,this.transform.position,Quaternion.Euler(0,0,90 * playerObject.transform.localScale.x));
 			
 			for(int countBullet=0; countBullet<CreateBullets;countBullet++ ){

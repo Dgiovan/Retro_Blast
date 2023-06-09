@@ -17,6 +17,10 @@ public class SceneController : MonoBehaviour
 	{
 		SceneManager.LoadScene(scene);
 	}
+	public static void changeScene(string scene,int leve)
+	{
+		SceneManager.LoadScene(scene);
+	}
 	
 	public void exitApp()
 	{

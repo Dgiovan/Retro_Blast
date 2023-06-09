@@ -17,11 +17,13 @@ public class PlayerMoves : MonoBehaviour
 	public  Animator	anim;
 	private bool		fromKeyBoard		= true;
 	public  int			animSpeedOfMovement = STOP;
-	private bool		canJump = true;
+	private bool		canJump 			= true;
 	// Start is called before the first frame update
     void Start()
     {
 	    playerBody = GetComponent<Rigidbody2D>();
+	
+
     }
 
 	protected void FixedUpdate()
@@ -80,7 +82,9 @@ public class PlayerMoves : MonoBehaviour
 	}
 	/**jump method can be used from the onclick method*/
 	public void jump(){
+		Debug.Log("call jump");
 		if(canJump){
+			Debug.Log("on method");
 			anim.SetBool("isJump",true);
 			playerBody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
 			canJump = false;
